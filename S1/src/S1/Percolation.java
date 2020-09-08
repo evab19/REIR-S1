@@ -13,6 +13,10 @@ public class Percolation {
         if (row==2) {
             return true;
         }
+
+        if (col==2) {
+            return true;
+        }
         return false;
     }
 
