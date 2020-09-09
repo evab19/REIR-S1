@@ -1,6 +1,7 @@
 package S1;
 
 
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
 
 public class Percolation {
@@ -19,11 +20,52 @@ public class Percolation {
                 grid[i][j] = false;
             }
         }
+        wqu = new WeightedQuickUnionUF((N*N) + 2);
     }
 
     public void open(int row, int col) {
         openSites++;
         grid[row][col] = true;
+        int location = encode(row, col);
+        int N = grid.length;
+        if (row > 0) { // not top row
+            if (isOpen((row-1),col)) {
+                union(location, encode((row-1), col));
+            }
+        } else { // this is the top row
+            union(0, location);
+        }
+
+        if (row < (N-1)) { //if not the bottom row
+            if (isOpen((row+1), col)) {
+                union(location, encode((row+1), col));
+            }
+        } else { // is the bottom row
+            union(location, (N*N+1));
+        }
+
+        if (col > 0) { // if not left most
+            if (isOpen(row, (col-1))) {
+                union(location, encode(row, col-1));
+            }
+        }
+
+        if (col < N-1) { // if not right most
+            if (isOpen(row, (col+1))) {
+                union(location, encode(row, col+1));
+            }
+        }
+
+    }
+
+    private int encode(int row, int col) {
+        int N = grid.length;
+        int code = (row * N + col + 1);
+        return code;
+    }
+
+    private void union(int p1, int p2) {
+        wqu.union(p1, p2);
     }
 
     public boolean isOpen(int row, int col) { //is the site open?
@@ -40,10 +82,12 @@ public class Percolation {
     }
 
     public boolean percolates() { //does the system percolate?
-        return false;
+        int sink = (grid.length* grid.length) + 1;
+        return wqu.connected(0,sink);
     }
 
     public static void main(String[] args) {
+
 
 
     }
