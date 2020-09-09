@@ -1,7 +1,7 @@
 package S1;
 
 
-import edu.princeton.cs.algs4.StdOut;
+
 import edu.princeton.cs.algs4.Stopwatch;
 
 public class Percolation {
@@ -11,9 +11,14 @@ public class Percolation {
     private Stopwatch sw;
     private WeightedQuickUnionUF wqu;
     private QuickFindUF qf;
+    private int N;
 
     public Percolation(int N){ //creates an N-by-N grid, with all sites blocked
-        size = N;
+        //size = N;
+        this.N = N;
+        if(N <= 0){
+            throw new IllegalArgumentException("Value of N cannot be less than 1");
+        }
         grid = new boolean[N][N];
         for(int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
@@ -24,6 +29,9 @@ public class Percolation {
     }
 
     public void open(int row, int col) {
+        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
+            throw new IndexOutOfBoundsException("row or column out of bounds");
+        };
 
         int location = encode(row, col);
         int N = grid.length;
@@ -73,10 +81,16 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) { //is the site open?
+        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
+            throw new IndexOutOfBoundsException("row or column out of bounds");
+        };
         return grid[row][col];
     }
 
     public boolean isFull(int row, int col) { //is the site full?
+        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
+            throw new IndexOutOfBoundsException("row or column out of bounds");
+        };
         int location = encode(row, col);
         return wqu.connected(location, 0);
     }
@@ -91,8 +105,6 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-
-
 
     }
 }
