@@ -1,22 +1,33 @@
 package S1;
 
-import java.util.*;
+
+import edu.princeton.cs.algs4.Stopwatch;
 
 public class Percolation {
+    private boolean[][] grid;
+    private int size;
+    private int openSites;
+    private Stopwatch sw;
+    private WeightedQuickUnionUF wqu;
+    private QuickFindUF qf;
 
     public Percolation(int N){ //creates an N-by-N grid, with all sites blocked
-        //boolean array
-    }
-
-    private int encode(int i, int j) { //encodes the sites in the grid to a 1dimensional array
-        return 0;
+        size = N;
+        grid = new boolean[N][N];
+        for(int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                grid[i][j] = false;
+            }
+        }
     }
 
     public void open(int row, int col) {
-    } //open site
+        openSites++;
+        grid[row][col] = true;
+    }
 
     public boolean isOpen(int row, int col) { //is the site open?
-        return false;
+        return grid[row][col];
     }
 
     public boolean isFull(int row, int col) { //is the site full?
@@ -24,7 +35,7 @@ public class Percolation {
     }
 
     public int numberOfOpenSites() { //return number of open sites
-        System.out.println("Number of open sites: ");
+        System.out.println("Number of open sites: " + openSites);
         return 0;
     }
 
