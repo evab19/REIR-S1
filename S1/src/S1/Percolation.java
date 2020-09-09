@@ -24,35 +24,39 @@ public class Percolation {
     }
 
     public void open(int row, int col) {
-        openSites++;
-        grid[row][col] = true;
+
         int location = encode(row, col);
         int N = grid.length;
-        if (row > 0) { // not top row
-            if (isOpen((row-1),col)) {
-                union(location, encode((row-1), col));
-            }
-        } else { // this is the top row
-            union(0, location);
-        }
 
-        if (row < (N-1)) { //if not the bottom row
-            if (isOpen((row+1), col)) {
-                union(location, encode((row+1), col));
+        if (!isOpen(row, col)) {
+            grid[row][col] = true;
+            openSites++;
+            if (row > 0) { // not top row
+                if (isOpen((row - 1), col)) {
+                    union(location, encode((row - 1), col));
+                }
+            } else { // this is the top row
+                union(0, location);
             }
-        } else { // is the bottom row
-            union(location, (N*N+1));
-        }
 
-        if (col > 0) { // if not left most
-            if (isOpen(row, (col-1))) {
-                union(location, encode(row, col-1));
+            if (row < (N - 1)) { //if not the bottom row
+                if (isOpen((row + 1), col)) {
+                    union(location, encode((row + 1), col));
+                }
+            } else { // is the bottom row
+                union(location, (N * N + 1));
             }
-        }
 
-        if (col < N-1) { // if not right most
-            if (isOpen(row, (col+1))) {
-                union(location, encode(row, col+1));
+            if (col > 0) { // if not left most
+                if (isOpen(row, (col - 1))) {
+                    union(location, encode(row, col - 1));
+                }
+            }
+
+            if (col < N - 1) { // if not right most
+                if (isOpen(row, (col + 1))) {
+                    union(location, encode(row, col + 1));
+                }
             }
         }
 
@@ -73,12 +77,12 @@ public class Percolation {
     }
 
     public boolean isFull(int row, int col) { //is the site full?
-        return false;
+        int location = encode(row, col);
+        return wqu.connected(location, 0);
     }
 
-    public int numberOfOpenSites() { //return number of open sites
-        System.out.println("Number of open sites: " + openSites);
-        return 0;
+    public int numberOfOpenSites() { //return number of open sites;
+        return openSites;
     }
 
     public boolean percolates() { //does the system percolate?
