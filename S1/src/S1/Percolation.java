@@ -1,10 +1,10 @@
 package S1;
 
+import edu.princeton.cs.algs4.QuickFindUF;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-import static edu.princeton.cs.algs4.StdRandom.uniform;
 
 public class Percolation {
     private boolean[][] grid;
@@ -106,7 +106,7 @@ public class Percolation {
     //testing
     public static void main(String[] args) {
         Stopwatch time = new Stopwatch();
-        PercolationStats percolationtest = new PercolationStats(10,100);
+        PercolationStats percolationtest = new PercolationStats(100,1000);
         StdOut.println("Time: " + time.elapsedTime());
 
         //Percolation percolation = new Percolation(6);
