@@ -1,19 +1,16 @@
 package S1;
 
-
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.Stopwatch;
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.*;
 
 
-public class Percolation {
+public class PercolationQF {
     private boolean[][] grid;
     private int openSites;
     private Stopwatch sw;
-    private WeightedQuickUnionUF wqu;
+    private QuickFindUF qf;
     private int N;
 
-    public Percolation(int N){ //creates an N-by-N grid, with all sites blocked
+    public PercolationQF(int N){ //creates an N-by-N grid, with all sites blocked
         this.N = N;
         if(N <= 0){
             throw new IllegalArgumentException("Value of N cannot be less than 1");
@@ -24,7 +21,7 @@ public class Percolation {
                 grid[i][j] = false;
             }
         }
-        wqu = new WeightedQuickUnionUF((N*N) + 2);
+        qf = new QuickFindUF((N*N) + 2);
     }
 
     public void open(int row, int col) {
@@ -76,7 +73,7 @@ public class Percolation {
     }
 
     private void union(int p1, int p2) {
-        wqu.union(p1, p2);
+        qf.union(p1, p2);
     }
 
     public boolean isOpen(int row, int col) { //is the site open?
@@ -91,7 +88,7 @@ public class Percolation {
             throw new IndexOutOfBoundsException("row or column out of bounds");
         };
         int location = encode(row, col);
-        return wqu.connected(location, 0);
+        return qf.connected(location, 0);
     }
 
     public int numberOfOpenSites() { //return number of open sites;
@@ -100,7 +97,7 @@ public class Percolation {
 
     public boolean percolates() { //does the system percolate?
         int sink = (grid.length* grid.length) + 1;
-        return wqu.connected(0,sink);
+        return qf.connected(0,sink);
     }
     //testing
     public static void main(String[] args) {
