@@ -1,7 +1,5 @@
 package S1;
 
-
-
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
@@ -10,7 +8,6 @@ import static edu.princeton.cs.algs4.StdRandom.uniform;
 
 public class Percolation {
     private boolean[][] grid;
-    private int size;
     private int openSites;
     private Stopwatch sw;
     private WeightedQuickUnionUF wqu;
@@ -18,7 +15,6 @@ public class Percolation {
     private int N;
 
     public Percolation(int N){ //creates an N-by-N grid, with all sites blocked
-        //size = N;
         this.N = N;
         if(N <= 0){
             throw new IllegalArgumentException("Value of N cannot be less than 1");
@@ -107,16 +103,29 @@ public class Percolation {
         int sink = (grid.length* grid.length) + 1;
         return wqu.connected(0,sink);
     }
-
+    //testing
     public static void main(String[] args) {
-        int N = Integer.parseInt(args[0]);
-        Percolation percolation = new Percolation(N);
-        while(true){
-            int row = uniform(0, N);
-            int col = uniform(0, N);
-            percolation.open(row, col);
-            percolation.isFull(row, col);
-            
-        }
+        Stopwatch time = new Stopwatch();
+        PercolationStats percolationtest = new PercolationStats(10,100);
+        StdOut.println("Time: " + time.elapsedTime());
+
+        //Percolation percolation = new Percolation(6);
+
+        //StdOut.println("0,0 is open - Should be false: " + percolation.isOpen(0,0));
+
+        //percolation.open(0,0);
+
+        //StdOut.println("0,0 is open - Should now be true: " + percolation.isOpen(0,0));
+
+        // testing out of bounds - should throw an error
+        // percolation.open(-3,1);
+
+        //StdOut.println("0,0 is full - should be true: " + percolation.isFull(0,0));
+
+        //percolation.open(3,3);
+
+        //StdOut.println("3,3 is full test - Should be false: " + percolation.isFull(3,3));
+
+        //StdOut.println("Number of open sites: should return 2: " + percolation.numberOfOpenSites());
     }
 }
