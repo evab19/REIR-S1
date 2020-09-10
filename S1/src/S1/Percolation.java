@@ -27,10 +27,20 @@ public class Percolation {
         wqu = new WeightedQuickUnionUF((N*N) + 2);
     }
 
+    private void isValid(int row, int col) {
+        if (row < 0 ||row > grid.length) {
+            throw new IndexOutOfBoundsException("Invalid index!");
+        }
+        if (col < 0 || col > grid.length) {
+            throw new IndexOutOfBoundsException("Invalid index!");
+        }
+        if (row >= N || col >= N ) {
+            throw new IndexOutOfBoundsException("Invalid index!");
+        }
+        }
+
     public void open(int row, int col) {
-        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
-            throw new IndexOutOfBoundsException("row or column out of bounds");
-        };
+        isValid(row, col);
 
         int location = encode(row, col);
         int N = grid.length;
@@ -80,16 +90,12 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) { //is the site open?
-        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
-            throw new IndexOutOfBoundsException("row or column out of bounds");
-        };
+        isValid(row, col);
         return grid[row][col];
     }
 
     public boolean isFull(int row, int col) { //is the site full?
-        if ((row < 0 || col < 0) && (row >= N-1 || col >= N-1)) {
-            throw new IndexOutOfBoundsException("row or column out of bounds");
-        };
+        isValid(row, col);
         int location = encode(row, col);
         return wqu.connected(location, 0);
     }
@@ -104,15 +110,10 @@ public class Percolation {
     }
     //testing
     public static void main(String[] args) {
-        Stopwatch time = new Stopwatch();
-        PercolationStats percolationtest = new PercolationStats(100,1000);
-        StdOut.println("Time: " + time.elapsedTime());
+        //Stopwatch time = new Stopwatch();
+        //PercolationStats percolationtest = new PercolationStats(100,1000);
+        //StdOut.println("Time: " + time.elapsedTime());
 
-        //Percolation percolation = new Percolation(6);
-
-        //StdOut.println("0,0 is open - Should be false: " + percolation.isOpen(0,0));
-
-        //percolation.open(0,0);
 
         //StdOut.println("0,0 is open - Should now be true: " + percolation.isOpen(0,0));
 

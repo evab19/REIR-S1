@@ -26,10 +26,10 @@ public class PercolationStats {
             }
             results[i] = (double)percolation.numberOfOpenSites() / (N*N);
         }
-        StdOut.println("Mean: " + mean());
-        StdOut.println("Standard deviation: " + stddev());
-        StdOut.println("95% confidence interval low: " + confidenceLow());
-        StdOut.println("95% confidence interval high: " + confidenceHigh());
+        //StdOut.println("Mean: " + mean());
+        //StdOut.println("Standard deviation: " + stddev());
+        //StdOut.println("95% confidence interval low: " + confidenceLow());
+        //StdOut.println("95% confidence interval high: " + confidenceHigh());
     }
 
     public double mean() {
