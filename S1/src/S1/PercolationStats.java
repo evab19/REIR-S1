@@ -5,22 +5,28 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
 
+    public static double[] results;
+
     public PercolationStats(int N, int T) {
         // perform T independent experiments on an N-by-N grid
-       // for (int i=0; i < T; i++){
-         //   boolean [][] results = Percolation;
-        //}
+        Percolation percTest = new Percolation(N);
+        for (int i=0; i < T; i++){
+          percTest.percolates();
+          results[i] = percTest.numberOfOpenSites();
+
+        }
+
     }
 
     public double mean() {
         // sample mean of percolation threshold
-        ///return StdStats.mean()
-        return 0;
+        return StdStats.mean(results);
+
     }
 
     public double stddev() {
         //sample standard deviation of percolation threshold
-        return 0;
+        return StdStats.stddev(results);
     }
 
     public double confidenceLow() {

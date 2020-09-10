@@ -2,7 +2,11 @@ package S1;
 
 
 
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
+
+import static edu.princeton.cs.algs4.StdRandom.uniform;
 
 public class Percolation {
     private boolean[][] grid;
@@ -105,6 +109,14 @@ public class Percolation {
     }
 
     public static void main(String[] args) {
-
+        int N = Integer.parseInt(args[0]);
+        Percolation percolation = new Percolation(N);
+        while(true){
+            int row = uniform(0, N);
+            int col = uniform(0, N);
+            percolation.open(row, col);
+            percolation.isFull(row, col);
+            
+        }
     }
 }
